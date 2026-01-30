@@ -182,11 +182,6 @@ diamond makedb --in your_proteins.fasta --db your_proteins.dmnd
 
 This creates `.dmnd` binary index files that DIAMOND uses for fast searching.
 
-**Time estimates:**
-- Swiss-Prot: ~2-3 minutes
-- Ensembl human: ~5-10 minutes
-- Custom databases: Depends on size
-
 **Note:** You only need to create the index once. Reuse the `.dmnd` file for multiple searches.
 
 ## Step 3: Run DIAMOND BLASTP Search
