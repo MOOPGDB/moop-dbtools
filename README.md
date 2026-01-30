@@ -210,7 +210,7 @@ perl parsers/parse_GFF3_to_MOOP_TSV.pl genomic.gff3 organisms.tsv Chamaeleo caly
 
 **Create empty database:**
 ```bash
-sqlite3 organism.sqlite < schema/create_schema_sqlite.sql
+sqlite3 organism.sqlite < create_schema_sqlite.sql
 ```
 
 **Load gene data:**
@@ -283,8 +283,8 @@ This uses sample data in `test_data/` and outputs to `test_output/`.
 | `parse_GFF3_to_MOOP_TSV.pl` | Convert GFF3 to MOOP format | GFF3 + organisms.tsv | genes.tsv with headers |
 | `parse_DIAMOND_to_MOOP_TSV.pl` | Convert DIAMOND output | tophit.tsv | *_homologs.moop.tsv |
 | `parse_InterProScan_to_MOOP_TSV.pl` | Convert InterProScan output | iprscan.tsv | Multiple annotation files |
-| `load_genes_sqlite.pl` | Create DB & load gene features | genes.tsv | organism.sqlite |
-| `load_annotations_sqlite.pl` | Load annotations | annotations.tsv | Updated organism.sqlite |
+| `load_genes_sqlite.pl` | Load gene features into database | genes.tsv + organism.sqlite | Updated organism.sqlite |
+| `load_annotations_sqlite.pl` | Load annotations into database | annotations.tsv + organism.sqlite | Updated organism.sqlite |
 | `create_schema_sqlite.sql` | Database schema | - | organism.sqlite |
 
 ## Directory Structure
@@ -294,8 +294,7 @@ moop-dbtools/
 ├── README.md                    # This file
 ├── environment.yml              # Conda dependencies
 ├── test_workflow.sh             # Complete end-to-end example
-├── schema/
-│   └── create_schema_sqlite.sql # Database schema with comments
+├── create_schema_sqlite.sql     # Database schema with comments
 ├── parsers/                     # Parsing scripts
 │   ├── parse_GFF3_to_MOOP_TSV.pl
 │   ├── parse_DIAMOND_to_MOOP_TSV.pl
@@ -305,13 +304,12 @@ moop-dbtools/
 │   └── load_annotations_sqlite.pl
 ├── analysis/                    # Example analysis workflows
 │   ├── download_uniprot_sprot.sh
-│   ├── format_uniprot_sprot.sh
+│   ├── format_uniprot_db.sh
 │   ├── run_diamond_vs_uniprot_sprot.sh
 │   ├── download_ensembl_human.sh
-│   ├── format_ensembl_human.sh
+│   ├── format_ensembl_human_db.sh
 │   ├── run_diamond_vs_ensembl_human.sh
-│   ├── run_interproscan.sh
-│   └── README.md
+│   └── run_interproscan.sh
 ├── docs/                        # Detailed documentation
 │   ├── DATABASE_LOADING.md
 │   └── ANALYSIS_AND_PARSING.md
