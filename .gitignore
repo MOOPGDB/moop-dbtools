@@ -1,0 +1,11 @@
+test_output/
+*.db
+*.db-shm
+*.db-wal
+*.dmnd
+*.daa
+*.dai
+*.dhr
+*.dri
+*.hdb
+*.hds
