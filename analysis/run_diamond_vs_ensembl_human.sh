@@ -1,5 +1,9 @@
 #!/bin/bash
 # Run DIAMOND BLASTP search against Ensembl human
+#
+# NOTE: Requires DIAMOND installed
+#   mamba activate moop-dbtools
+# Or: conda activate moop-dbtools
 
 diamond blastp \
   --query test_data/protein.aa.fa \

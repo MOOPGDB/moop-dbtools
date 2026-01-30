@@ -1,5 +1,9 @@
 #!/bin/bash
 # Run DIAMOND BLASTP search against Swiss-Prot
+#
+# NOTE: Requires DIAMOND installed
+#   mamba activate moop-dbtools
+# Or: conda activate moop-dbtools
 
 # Query: test protein sequences
 # Database: Swiss-Prot (must be formatted first with format_uniprot_db.sh)

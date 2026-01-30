@@ -1,5 +1,9 @@
 #!/bin/bash
 # Run InterProScan protein domain analysis
+#
+# NOTE: Requires InterProScan installed
+#   mamba activate moop-dbtools
+# Or: conda activate moop-dbtools
 
 # Run InterProScan on test proteins
 interproscan.sh \
