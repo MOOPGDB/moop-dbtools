@@ -4,6 +4,7 @@
 # NOTE: Requires InterProScan installed
 #   mamba activate moop-dbtools
 # Or: conda activate moop-dbtools
+# Or: mamba install -c bioconda interproscan
 
 # Run InterProScan on test proteins
 interproscan.sh \
