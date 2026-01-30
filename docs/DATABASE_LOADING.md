@@ -54,7 +54,7 @@ Chamaeleo	calyptratus	Veiled Chameleon	CCA3	SIMR	CCA3	179908	mRNA,gene	...
 Then convert your GFF file to MOOP TSV format:
 
 ```bash
-perl parse_GFF3_to_MOOP_TSV.pl genomic.gff3 organisms.tsv Chamaeleo calyptratus CCA3 > genes.tsv
+perl parsers/parse_GFF3_to_MOOP_TSV.pl genomic.gff3 organisms.tsv Chamaeleo calyptratus CCA3 > genes.tsv
 ```
 
 **Parameters:**
@@ -76,7 +76,7 @@ This creates an empty SQLite database with the MOOP schema (organism, genome, fe
 ### 4. Load Gene Data
 
 ```bash
-perl import_genes_sqlite.pl organism.sqlite genes.tsv
+perl loaders/load_genes_sqlite.pl organism.sqlite genes.tsv
 ```
 
 **Input file format:** Tab-delimited file with header comments:
@@ -110,7 +110,7 @@ gene_002	gene	scaffold_001	GENE2	Description of gene 2
 ### 5. Load Annotation Data
 
 ```bash
-perl load_annotations_fast.pl organism.sqlite annotations.tsv
+perl loaders/load_annotations_sqlite.pl organism.sqlite annotations.tsv
 ```
 
 **Input file format:** Tab-delimited file with header metadata:
@@ -145,10 +145,10 @@ PROTEIN_002	Q16342	Programmed cell death protein 2	2.04e-210
 
 ## Scripts Overview
 
-### `parse_GFF3_to_MOOP_TSV.pl`
+### `parsers/parse_GFF3_to_MOOP_TSV.pl`
 Converts GFF3 annotation files to MOOP TSV format for database loading. Reads organism metadata from a centralized TSV file.
 
-**Usage:** `perl parse_GFF3_to_MOOP_TSV.pl <genomic.gff3> <organisms.tsv> <genus> <species> <accession>`
+**Usage:** `perl parsers/parse_GFF3_to_MOOP_TSV.pl <genomic.gff3> <organisms.tsv> <genus> <species> <accession>`
 
 **Features:**
 - Parses GFF3 files with ID, Name, Note, and Parent attributes
@@ -160,13 +160,13 @@ Converts GFF3 annotation files to MOOP TSV format for database loading. Reads or
 **Input:** GFF3 file + organisms metadata TSV
 **Output:** genes.tsv with metadata headers
 
-### `import_genes_sqlite.pl`
+### `loaders/load_genes_sqlite.pl`
 Imports gene features into SQLite database. Handles:
 - Organism/genome creation (if not exists)
 - Parent feature relationships
 - Feature upsert (insert or update)
 
-**Usage:** `perl import_genes_sqlite.pl <organism.sqlite> <genes.tsv>`
+**Usage:** `perl loaders/load_genes_sqlite.pl <organism.sqlite> <genes.tsv>`
 
 **Features:**
 - Creates organism record if it doesn't exist (based on genus, species, subtype)
@@ -175,10 +175,10 @@ Imports gene features into SQLite database. Handles:
 - Updates existing features if metadata has changed
 - Uses SQLite transactions for data integrity
 
-### `load_annotations_fast.pl`
+### `loaders/load_annotations_sqlite.pl`
 Batch loads gene annotations with optimized performance.
 
-**Usage:** `perl load_annotations_fast.pl <organism.sqlite> <annotations.tsv>`
+**Usage:** `perl loaders/load_annotations_sqlite.pl <organism.sqlite> <annotations.tsv>`
 
 **Features:**
 - Fast batch loading of annotations

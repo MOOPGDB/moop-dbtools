@@ -45,7 +45,7 @@ conda activate moop-dbtools
 ### Tools and Data Required
 
 - DIAMOND (included in conda environment)
-- `parse_DIAMOND_to_MOOP_TSV.pl` script
+- `parsers/parse_DIAMOND_to_MOOP_TSV.pl` script
 - Your organism protein sequences (FASTA format)
 - Reference protein database (UniProt, Ensembl, or custom)
 
@@ -294,12 +294,12 @@ diamond blastp \
 
 ## Step 4: Parse DIAMOND Results to MOOP Format
 
-The `parse_DIAMOND_to_MOOP_TSV.pl` script converts raw DIAMOND output into MOOP annotation format.
+The `parsers/parse_DIAMOND_to_MOOP_TSV.pl` script converts raw DIAMOND output into MOOP annotation format.
 
 ### UniProtKB/Swiss-Prot Example
 
 ```bash
-perl parse_DIAMOND_to_MOOP_TSV.pl \
+perl parsers/parse_DIAMOND_to_MOOP_TSV.pl \
   tophit.tsv \
   'UniProtKB/Swiss-Prot' \
   '2025-06-17' \
@@ -312,7 +312,7 @@ This generates: `UniProtKB_Swiss-Prot.homologs.moop.tsv`
 ### Ensembl Human Example
 
 ```bash
-perl parse_DIAMOND_to_MOOP_TSV.pl \
+perl parsers/parse_DIAMOND_to_MOOP_TSV.pl \
   tophit.tsv \
   'Ensembl Homo sapiens' \
   '2025-06-17' \
@@ -377,7 +377,7 @@ PROTEIN_003    HRH2    Histamine receptor H2    1.5e-95
 Once you have parsed MOOP-format annotations, load them into the database:
 
 ```bash
-perl load_annotations_fast.pl organism.sqlite UniProtKB_Swiss-Prot.homologs.moop.tsv
+perl loaders/load_annotations_sqlite.pl organism.sqlite UniProtKB_Swiss-Prot.homologs.moop.tsv
 ```
 
 The annotations are now searchable in MOOP with full provenance tracking (source, version, and URLs).
@@ -385,10 +385,10 @@ The annotations are now searchable in MOOP with full provenance tracking (source
 You can load multiple annotation sources into the same database:
 ```bash
 # Load Swiss-Prot homologs
-perl load_annotations_fast.pl organism.sqlite UniProtKB_Swiss-Prot.homologs.moop.tsv
+perl loaders/load_annotations_sqlite.pl organism.sqlite UniProtKB_Swiss-Prot.homologs.moop.tsv
 
 # Load Ensembl human homologs
-perl load_annotations_fast.pl organism.sqlite Ensembl_Homo_sapiens.homologs.moop.tsv
+perl loaders/load_annotations_sqlite.pl organism.sqlite Ensembl_Homo_sapiens.homologs.moop.tsv
 ```
 
 ## Troubleshooting
@@ -409,7 +409,7 @@ head -20 your_query.fa
 ### Parser: "Missing required arguments"
 Check that you provided exactly 5 arguments:
 ```bash
-perl parse_DIAMOND_to_MOOP_TSV.pl <file> <source> <version> <url> <accession_url>
+perl parsers/parse_DIAMOND_to_MOOP_TSV.pl <file> <source> <version> <url> <accession_url>
 ```
 
 ### Parser: Input file issues
@@ -441,15 +441,15 @@ diamond blastp --evalue 1e-10 --query proteins.fa --db ref.dmnd --out pass2.tsv 
 ```bash
 # UniProt Swiss-Prot
 diamond blastp --query proteins.fa --db uniprot_sprot.dmnd --out uniprot.tsv ...
-perl parse_DIAMOND_to_MOOP_TSV.pl uniprot.tsv "UniProtKB/Swiss-Prot" "2025-06-17" ...
+perl parsers/parse_DIAMOND_to_MOOP_TSV.pl uniprot.tsv "UniProtKB/Swiss-Prot" "2025-06-17" ...
 
 # Ensembl human
 diamond blastp --query proteins.fa --db ensembl_human.dmnd --out ensembl.tsv ...
-perl parse_DIAMOND_to_MOOP_TSV.pl ensembl.tsv "Ensembl Homo sapiens" "2025-06-17" ...
+perl parsers/parse_DIAMOND_to_MOOP_TSV.pl ensembl.tsv "Ensembl Homo sapiens" "2025-06-17" ...
 
 # Load both into database
-perl load_annotations_fast.pl organism.sqlite UniProtKB_Swiss_Prot.homologs.moop.tsv
-perl load_annotations_fast.pl organism.sqlite Ensembl_Homo_sapiens.homologs.moop.tsv
+perl loaders/load_annotations_sqlite.pl organism.sqlite UniProtKB_Swiss_Prot.homologs.moop.tsv
+perl loaders/load_annotations_sqlite.pl organism.sqlite Ensembl_Homo_sapiens.homologs.moop.tsv
 ```
 
 ## See Also
