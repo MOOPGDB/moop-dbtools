@@ -4,6 +4,7 @@
 # NOTE: Requires DIAMOND installed
 #   mamba activate moop-dbtools
 # Or: conda activate moop-dbtools
+# Or: mamba install -c bioconda diamond
 
 # Query: test protein sequences
 # Database: Swiss-Prot (must be formatted first with format_uniprot_db.sh)

@@ -4,6 +4,7 @@
 # NOTE: Requires DIAMOND installed
 #   mamba activate moop-dbtools
 # Or: conda activate moop-dbtools
+# Or: mamba install -c bioconda diamond
 
 # Create DIAMOND database
 diamond makedb --in uniprot_sprot.fasta -d uniprot_sprot.dmnd -p 2

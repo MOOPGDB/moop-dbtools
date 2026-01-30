@@ -4,6 +4,7 @@
 # NOTE: Requires DIAMOND installed
 #   mamba activate moop-dbtools
 # Or: conda activate moop-dbtools
+# Or: mamba install -c bioconda diamond
 
 diamond blastp \
   --query test_data/protein.aa.fa \
