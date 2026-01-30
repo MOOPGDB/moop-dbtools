@@ -29,6 +29,15 @@ Complete workflow for:
 
 Start here if you want to find homologous proteins for your genes.
 
+### [ANNOTATION_TYPES.md](docs/ANNOTATION_TYPES.md) - Standard Annotation Types
+Reference guide for:
+- All standard MOOP annotation types (Orthologs, Domains, Gene Ontology, etc.)
+- Required format for annotation TSV files
+- Custom annotation type support
+- How MOOP manages annotation metadata
+
+Start here to understand what annotation types are available and how to format custom analysis output.
+
 ## Custom Analysis Formats
 
 **You are not limited to DIAMOND and InterProScan!** Any analysis tool output can be formatted to load into MOOP as long as it follows the MOOP annotation format rules:
