@@ -7,7 +7,7 @@ sub usage {
     my ($msg) = @_;
     print STDERR "ERROR: $msg\n" if $msg;
     print STDERR <<'EOF';
-Usage: import_genes_sqlite.pl <organism.sqlite> <genes.tsv>
+Usage: load_genes_sqlite.pl <organism.sqlite> <genes.tsv>
 
 Required arguments:
   organism.sqlite     SQLite database file (created with create_schema_sqlite.sql)
@@ -21,10 +21,10 @@ genes.tsv format (with metadata headers):
   <gene_id>    <type>    <parent_id>    <name>    <description>
 
 Example:
-  perl import_genes_sqlite.pl organism.sqlite genes.tsv
+  perl load_genes_sqlite.pl organism.sqlite genes.tsv
   
 Generates genes.tsv using:
-  perl make_moopFeatureTable_fromGFF.pl genomic.gff organisms.tsv Genus species accession > genes.tsv
+  perl parse_GFF3_to_MOOP_TSV.pl genomic.gff3 organisms.tsv Genus species genome-accession > genes.tsv
 EOF
     exit 1;
 }

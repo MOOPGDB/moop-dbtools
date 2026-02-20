@@ -11,7 +11,7 @@ Usage: parse_DIAMOND_to_MOOP_TSV.pl <tophit.tsv> <source> <version> <source_url>
 Required arguments:
   tophit.tsv          DIAMOND output file (tab-delimited: qseqid, sseqid, stitle, evalue)
   source              Database source name (e.g., "UniProtKB/Swiss-Prot", "Ensembl Homo sapiens")
-  version             Database version/release date (e.g., "2025-06-17")
+  version             Database version/release (format varies by source, e.g., "2024.01", "115")
   source_url          Database homepage URL
   annotation_url      URL prefix for individual record lookup
 
@@ -23,7 +23,7 @@ Output:
   Creates: <source>.homologs.moop.tsv (spaces/slashes replaced with underscores)
 
 Example:
-  perl parse_DIAMOND_to_MOOP_TSV.pl tophit.tsv "UniProtKB/Swiss-Prot" "2025-06-17" \\
+  perl parse_DIAMOND_to_MOOP_TSV.pl tophit.tsv "UniProtKB/Swiss-Prot" "2024.01" \
     "https://www.uniprot.org" "https://www.uniprot.org/uniprotkb/"
 EOF
     exit 1;
