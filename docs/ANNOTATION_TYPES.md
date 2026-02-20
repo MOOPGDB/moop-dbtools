@@ -13,24 +13,20 @@ When you parse analysis results (DIAMOND, InterProScan, GO, etc.), your output s
 The following annotation types are commonly used in MOOP:
 
 ### Orthologs
-- **Color:** Blue
 - **Description:** Homologous genes separated in evolution by speciation events. Orthologs represent genes in different species that evolved from a common ancestral gene.
 - **Typical Source:** OrthoMCL, Ensembl Compara, or custom orthology analysis
 - **Common Synonyms:** Orthology
 
 ### Homologs
-- **Color:** Cyan
 - **Description:** Homologous genes in general, including both orthologs (separated by speciation) and paralogs (separated by gene duplication). This is the broader category.
 - **Typical Source:** Sequence similarity searches, custom homology analysis
 
 ### Domains
-- **Color:** Green
 - **Description:** Protein domains are conserved structural and functional units. Domain annotations identify these conserved regions using standard databases.
 - **Typical Source:** InterProScan, Pfam, SMART, InterPro
 - **Common Synonyms:** Protein Domains
 
 ### Gene Ontology
-- **Color:** Yellow
 - **Description:** Gene Ontology (GO) provides controlled vocabulary describing gene products in terms of biological processes, cellular components, and molecular functions.
 - **Typical Source:** InterProScan (includes GO mappings), GO annotation files, UniProt
 - **GO Categories:**
@@ -39,28 +35,23 @@ The following annotation types are commonly used in MOOP:
   - Molecular Function (MF)
 
 ### Gene Families
-- **Color:** Red
 - **Description:** Groups of genes sharing similar sequences and functions, typically arising from gene duplication events.
 - **Typical Source:** PANTHER, TreeFam, Ensembl gene trees, custom clustering
 
 ### AI Annotations
-- **Color:** Purple
 - **Description:** AI-based protein function predictions using machine learning and protein sequence language models to infer biological roles from sequences.
 - **Typical Source:** ProtNLM, ESMPLFold, other neural network-based predictors
 - **Common Synonyms:** ProtNLM
 
 ### Mapping
-- **Color:** Gray
 - **Description:** Genomic mapping information including chromosomal locations, genetic markers, and physical positions of genes.
 - **Typical Source:** Genome assembly files, linkage maps, QTL analysis
 
 ### Aliases
-- **Color:** Gray
 - **Description:** Alternative names and identifiers for genes and gene products from various databases and nomenclature systems.
 - **Typical Source:** UniProt, NCBI, species-specific databases
 
 ### Publications
-- **Color:** Dark Gray
 - **Description:** Scientific literature and publications associated with genes, including references from PubMed and other sources.
 - **Typical Source:** PubMed, Europe PMC, literature mining tools
 
