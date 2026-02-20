@@ -5,8 +5,8 @@
 # 1. Parse GFF3 to create feature table
 # 2. Create SQLite database schema
 # 3. Load features into database
-# 4. Load DIAMOND annotation results
-# 5. Load InterProScan results
+# 4. Parse and load DIAMOND annotation results (UniProt and Ensembl)
+# 5. Parse and load InterProScan results
 #
 # NOTE: Requires conda environment activated
 #   mamba activate moop-dbtools
