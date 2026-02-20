@@ -312,7 +312,7 @@ This generates: `UniProtKB_Swiss-Prot.homologs.moop.tsv`
 perl parsers/parse_DIAMOND_to_MOOP_TSV.pl \
   tophit.tsv \
   'Ensembl Homo sapiens' \
-  '2025-06-17' \
+  '115' \
   'https://www.ensembl.org/' \
   'https://www.ensembl.org/Multi/Search/Results?q='
 ```
@@ -324,8 +324,8 @@ This generates: `Ensembl_Homo_sapiens.homologs.moop.tsv`
 1. **tophit.tsv** - DIAMOND output file (must have 4 tab-delimited columns)
 2. **source** - Database source name (appears in annotation metadata)
    - Examples: "UniProtKB/Swiss-Prot", "Ensembl Homo sapiens", "Custom DB"
-3. **version** - Database version/release date (YYYY-MM-DD format)
-   - Examples: "2025-06-17", "release-115"
+3. **version** - Database version/release (format varies by source)
+   - Examples: "2024.01" (UniProt), "115" (Ensembl release number)
 4. **source_url** - Database homepage URL
    - Example: "https://www.uniprot.org"
 5. **annotation_url** - URL prefix for individual record lookup
