@@ -185,6 +185,6 @@ if ($error_count > 0) {
 } else {
     print STDERR "Errors/warnings: 0\n";
 }
-print STDERR "\nData loaded successfully!\n";
+print STDERR "\nData parsed successfully!\n";
 
 
