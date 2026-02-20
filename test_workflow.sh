@@ -23,7 +23,7 @@ OUTPUT_DIR="test_output"
 GENUS="Chamaeleo"
 SPECIES="calyptratus"
 ASSEMBLY="CCA3"
-DB_FILE="${OUTPUT_DIR}/${GENUS}_${SPECIES}.db"
+DB_FILE="${OUTPUT_DIR}/organism.sqlite"
 
 mkdir -p "$OUTPUT_DIR"
 
@@ -34,19 +34,25 @@ echo "✓ Created: $OUTPUT_DIR/features.tsv"
 echo ""
 
 # Step 2: Create SQLite database schema
-echo "Step 2: Creating SQLite database..."
-perl loaders/load_genes_sqlite.pl --schema --db "$DB_FILE" --genus "$GENUS" --species "$SPECIES"
-echo "✓ Created: $DB_FILE"
+echo "Step 2: Creating SQLite database schema..."
+sqlite3 "$DB_FILE" < create_schema_sqlite.sql
+echo "✓ Created database schema: $DB_FILE"
 echo ""
 
-# Step 3: Load features into database
-echo "Step 3: Loading features into database..."
+# Step 3: Load organism and genome metadata
+echo "Step 3: Loading organism and genome metadata..."
+perl loaders/load_genes_sqlite.pl --schema --db "$DB_FILE" --genus "$GENUS" --species "$SPECIES"
+echo "✓ Loaded organism/genome metadata"
+echo ""
+
+# Step 4: Load features into database
+echo "Step 4: Loading features into database..."
 perl loaders/load_genes_sqlite.pl --db "$DB_FILE" --genus "$GENUS" --species "$SPECIES" --file "$OUTPUT_DIR/features.tsv"
 echo "✓ Loaded features into database"
 echo ""
 
-# Step 4: Parse and load DIAMOND results
-echo "Step 4: Parsing DIAMOND results..."
+# Step 5: Parse and load DIAMOND results
+echo "Step 5: Parsing DIAMOND results..."
 perl parsers/parse_DIAMOND_to_MOOP_TSV.pl "$TEST_DATA/UNIPROT_sprot.tophit.tsv" uniprot_sprot > "$OUTPUT_DIR/diamond_annotations.tsv"
 echo "✓ Created: $OUTPUT_DIR/diamond_annotations.tsv"
 
@@ -55,8 +61,8 @@ perl loaders/load_annotations_sqlite.pl --db "$DB_FILE" --file "$OUTPUT_DIR/diam
 echo "✓ Loaded DIAMOND annotations"
 echo ""
 
-# Step 5: Parse and load InterProScan results
-echo "Step 5: Parsing InterProScan results..."
+# Step 6: Parse and load InterProScan results
+echo "Step 6: Parsing InterProScan results..."
 perl parsers/parse_InterProScan_to_MOOP_TSV.pl "$TEST_DATA/iprscan_results.tsv" > "$OUTPUT_DIR/interproscan_annotations.tsv"
 echo "✓ Created: $OUTPUT_DIR/interproscan_annotations.tsv"
 
