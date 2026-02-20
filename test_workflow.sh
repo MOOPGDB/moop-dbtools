@@ -46,13 +46,21 @@ echo "✓ Loaded features into database"
 echo ""
 
 # Step 4: Parse and load DIAMOND results
-echo "Step 4: Parsing DIAMOND results..."
+echo "Step 4: Parsing DIAMOND results (UniProt)..."
 perl parsers/parse_DIAMOND_to_MOOP_TSV.pl "$TEST_DATA/UNIPROT_sprot.tophit.tsv" "UniProtKB/Swiss-Prot" "2024.01" "https://www.uniprot.org" "https://www.uniprot.org/uniprotkb/"
-echo "✓ Created DIAMOND annotations TSV"
+echo "✓ Created UniProtKB_Swiss-Prot.homologs.moop.tsv"
 
-echo "Loading DIAMOND annotations into database..."
-perl loaders/load_annotations_sqlite.pl --db "$DB_FILE" --file "$OUTPUT_DIR/diamond_annotations.tsv" --source "UNIPROT/SwissProt" --version "2024.01"
-echo "✓ Loaded DIAMOND annotations"
+echo "Loading DIAMOND annotations (UniProt) into database..."
+perl loaders/load_annotations_sqlite.pl "$DB_FILE" "UniProtKB_Swiss-Prot.homologs.moop.tsv"
+echo "✓ Loaded DIAMOND annotations (UniProt)"
+
+echo "Parsing DIAMOND results (Ensembl)..."
+perl parsers/parse_DIAMOND_to_MOOP_TSV.pl "$TEST_DATA/ENS_homo_sapiens.tophit.tsv" "Ensembl Homo sapiens" "115" "https://www.ensembl.org" "https://www.ensembl.org/Homo_sapiens/Gene/Summary?g="
+echo "✓ Created Ensembl_Homo_sapiens.homologs.moop.tsv"
+
+echo "Loading DIAMOND annotations (Ensembl) into database..."
+perl loaders/load_annotations_sqlite.pl "$DB_FILE" "Ensembl_Homo_sapiens.homologs.moop.tsv"
+echo "✓ Loaded DIAMOND annotations (Ensembl)"
 echo ""
 
 # Step 5: Parse and load InterProScan results
