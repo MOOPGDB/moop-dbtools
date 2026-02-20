@@ -6,7 +6,7 @@ sub usage {
     my ($msg) = @_;
     print STDERR "ERROR: $msg\n" if $msg;
     print STDERR <<'EOF';
-Usage: parse_InterProScan_to_MOOP_TSV.pl <interproscan.tsv> [--version VERSION_STRING]
+Usage: parse_InterProScan_to_MOOP_TSV.pl <interproscan.tsv> [--version VERSION_STRING] [--outdir OUTPUT_DIR]
 
 Required arguments:
   interproscan.tsv    InterProScan output file (TSV format)
@@ -14,6 +14,7 @@ Required arguments:
 Optional arguments:
   --version VERSION   Explicitly provide InterProScan version (e.g., "5.72-103.0")
                      If not provided, script will attempt to detect automatically
+  --outdir DIR        Output directory for generated TSV files (default: current directory)
 
 Input format:
   InterProScan TSV output with columns:
@@ -38,6 +39,9 @@ Examples:
   # Explicit version provided
   perl parse_InterProScan_to_MOOP_TSV.pl proteins_interpro.tsv --version 5.72-103.0
 
+  # With output directory
+  perl parse_InterProScan_to_MOOP_TSV.pl proteins_interpro.tsv --version 5.72-103.0 --outdir output/
+
   # Get version from interproscan.sh and save to file (run on analysis machine)
   interproscan.sh --version > interproscan.version
   # Then use the version string in the next run on a different machine
@@ -54,16 +58,32 @@ usage("Missing required arguments") unless @ARGV >= 1;
 
 my $iprscan_tsv = shift;
 my $version;
+my $outdir = '.';  # Default to current directory
 
-# Check for optional --version argument
+# Check for optional arguments
 while (@ARGV) {
     my $arg = shift;
     if ($arg eq '--version') {
         $version = shift;
         usage("--version requires a version string") unless $version;
+    } elsif ($arg eq '--outdir') {
+        $outdir = shift;
+        usage("--outdir requires a directory path") unless $outdir;
     } else {
         usage("Unknown argument: $arg");
     }
+}
+
+# Validate output directory
+if ($outdir ne '.') {
+    unless (-d $outdir) {
+        usage("Output directory does not exist: $outdir");
+    }
+    unless (-w $outdir) {
+        usage("Output directory is not writable: $outdir");
+    }
+    # Remove trailing slash if present
+    $outdir =~ s{/$}{};
 }
 
 # Validate input file
@@ -127,9 +147,9 @@ parse_interproscan_file($iprscan_tsv, \%annot, \%go);
 
 # Generate output files
 print STDERR "Generating MOOP-format output files...\n";
-generate_output_files(\%annot, \%go, $version, $date);
+generate_output_files(\%annot, \%go, $version, $date, $outdir);
 
-print STDERR "Done! Output files created in current directory.\n";
+print STDERR "Done! Output files created in $outdir/\n";
 
 # ============================================================================
 # SUBROUTINES
@@ -327,7 +347,7 @@ sub parse_interproscan_file {
 }
 
 sub generate_output_files {
-    my ($annot_ref, $go_ref, $version, $date) = @_;
+    my ($annot_ref, $go_ref, $version, $date, $outdir) = @_;
     my %annot = %$annot_ref;
     my %go = %$go_ref;
     
@@ -335,7 +355,7 @@ sub generate_output_files {
     foreach my $analysis (sort keys %annot) {
         next if $analysis =~ /GO$/;  # Skip GO files for now
         
-        my $filename = "$analysis.iprscan.moop.tsv";
+        my $filename = "$outdir/$analysis.iprscan.moop.tsv";
         my $annotation_type = determine_annotation_type($analysis);
         my $annotation_url = determine_annotation_url($analysis);
         
@@ -370,7 +390,7 @@ sub generate_output_files {
     foreach my $go_analysis ('InterPro2GO', 'PANTHER2GO') {
         next unless exists $annot{$go_analysis};
         
-        my $filename = "$go_analysis.iprscan.moop.tsv";
+        my $filename = "$outdir/$go_analysis.iprscan.moop.tsv";
         print STDERR "Writing: $filename\n";
         
         open OUT, ">$filename" or die "Cannot open $filename for writing: $!\n";
