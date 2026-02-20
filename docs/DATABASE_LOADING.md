@@ -41,15 +41,15 @@ First, ensure you have an organisms metadata TSV file with organism information 
 
 **organisms.tsv format:**
 ```
-genus	species	common-name	simrbase-prefix	source	accession	ncbi-taxon-id	feature-types	...
-Chamaeleo	calyptratus	Veiled Chameleon	CCA3	SIMR	CCA3	179908	mRNA,gene	...
+genus	species	common-name	genome-name	genome-accession	genome-source	ncbi-taxon-id	feature-types	...
+Chamaeleo	calyptratus	Veiled Chameleon	CCA3	CCA3	SIMR	179908	mRNA,gene	...
 ```
 
 **Key columns:**
 - `genus`, `species` - Scientific names (used to identify the organism)
-- `accession` - Genome accession ID (used to identify the organism)
+- `genome-accession` - Genome accession ID (used to identify the organism)
 - `feature-types` - Comma-separated list of feature types to extract (e.g., `mRNA,gene`)
-- Other columns: `common-name`, `simrbase-prefix`, `source`, `ncbi-taxon-id`, etc.
+- Other columns: `common-name`, `genome-name`, `genome-source`, `ncbi-taxon-id`, etc.
 
 Then convert your GFF file to MOOP TSV format:
 

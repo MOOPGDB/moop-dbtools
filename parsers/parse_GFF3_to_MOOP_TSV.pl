@@ -16,9 +16,9 @@ Required arguments:
   accession           Genome accession ID (used to match organisms.tsv)
 
 organisms.tsv format (tab-delimited):
-  Required columns: genus, species, accession, feature-types
+  Required columns: genus, species, genome-accession, feature-types
   feature-types: comma-separated list (e.g., "mRNA,gene")
-  Optional: common-name, ncbi-taxon-id, source, and other metadata
+  Optional: common-name, genome-name, genome-source, ncbi-taxon-id, and other metadata
 
 Output:
   STDOUT containing gene features in MOOP format with metadata headers
@@ -79,9 +79,9 @@ my $genus = $metadata{genus} // '';
 my $species = $metadata{species} // '';
 my $commonname = $metadata{'common-name'} // '';
 my $taxon_id = $metadata{'ncbi-taxon-id'} // '';
-my $genome_accession = $metadata{accession} // '';
-my $genome_name = $metadata{'simrbase-prefix'} // '';
-my $source = $metadata{source} // '';
+my $genome_accession = $metadata{'genome-accession'} // '';
+my $genome_name = $metadata{'genome-name'} // '';
+my $source = $metadata{'genome-source'} // '';
 my $details = $metadata{details} // '';
 my $feature_types_str = $metadata{'feature-types'} // '';
 
