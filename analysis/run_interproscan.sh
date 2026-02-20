@@ -17,4 +17,4 @@ interproscan.sh \
 echo "✓ InterProScan complete: interproscan_results.tsv"
 echo ""
 echo "Parse results with:"
-echo "  perl parsers/parse_InterProScan_to_MOOP_TSV.pl interproscan_results.tsv > annotations.tsv"
+echo "  perl parsers/parse_InterProScan_to_MOOP_TSV.pl interproscan_results.tsv --version \"5.52.0\" --outdir output/"

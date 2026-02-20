@@ -8,7 +8,7 @@ sub usage {
     my ($msg) = @_;
     print STDERR "ERROR: $msg\n" if $msg;
     print STDERR <<'EOF';
-Usage: load_annotations_fast.pl <organism.sqlite> <annotations.tsv>
+Usage: load_annotations_sqlite.pl <organism.sqlite> <annotations.tsv>
 
 Required arguments:
   organism.sqlite     SQLite database file (created with create_schema_sqlite.sql)
@@ -25,10 +25,10 @@ annotations.tsv format (with metadata headers):
   <gene_id>    <accession>    <description>    <score>
 
 Example:
-  perl load_annotations_fast.pl organism.sqlite UniProtKB_Swiss-Prot.homologs.moop.tsv
+  perl load_annotations_sqlite.pl organism.sqlite UniProtKB_Swiss-Prot.homologs.moop.tsv
 
 Generate annotations.tsv using:
-  perl parse_diamondBlast2moopTSV.pl tophit.tsv "Database Name" "2025-06-17" "http://url" "http://accession.url/"
+  perl parse_DIAMOND_to_MOOP_TSV.pl tophit.tsv "UniProtKB/Swiss-Prot" "2024.01" "https://www.uniprot.org" "https://www.uniprot.org/uniprotkb/"
 EOF
     exit 1;
 }
