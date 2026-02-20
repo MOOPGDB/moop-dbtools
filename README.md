@@ -110,6 +110,39 @@ mamba activate moop-dbtools
 
 This minimal install is ~100 MB and includes everything needed for database creation and loading.
 
+### Troubleshooting
+
+**Perl Module Conflicts:**
+
+If you see errors like `Can't load DBI.so: libperl.so.5.26: cannot open shared object file`, your system has local Perl modules (usually in `~/perl5/`) that conflict with the conda environment.
+
+To fix this temporarily in your current session:
+```bash
+unset PERL5LIB
+unset PERL_LOCAL_LIB_ROOT
+unset PERL_MB_OPT
+unset PERL_MM_OPT
+```
+
+These variables will be restored when you deactivate the conda environment or open a new terminal.
+
+To test that Perl and modules are working correctly:
+```bash
+perl -v && echo "" && perl -MDBI -e 'print "DBI version: $DBI::VERSION\n"' && perl -MDBD::SQLite -e 'print "DBD::SQLite version: $DBD::SQLite::VERSION\n"'
+```
+
+To fix permanently, add these lines to your conda environment activation:
+```bash
+mkdir -p ~/miniconda3/envs/moop-dbtools/etc/conda/activate.d
+cat > ~/miniconda3/envs/moop-dbtools/etc/conda/activate.d/unset_perl.sh << 'EOF'
+#!/bin/bash
+unset PERL5LIB
+unset PERL_LOCAL_LIB_ROOT
+unset PERL_MB_OPT
+unset PERL_MM_OPT
+EOF
+```
+
 ### Full Install (With Analysis Tools)
 
 If you want to include DIAMOND, InterProScan, or both:

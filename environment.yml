@@ -22,7 +22,7 @@ name: moop-dbtools
 channels:
   - bioconda
   - conda-forge
-  - defaults
+  - nodefaults
 
 dependencies:
   # Core Perl dependencies for database operations
@@ -32,7 +32,7 @@ dependencies:
   
   # Analysis tools (optional - can be commented out to save space)
   - diamond      # BLASTP protein alignment (6.3.3+)
-  - interproscan # Protein domain analysis (5.5+)
+  # - interproscan # Protein domain analysis (5.5+)
   
   # Utilities
   - curl
