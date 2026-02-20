@@ -57,8 +57,8 @@ echo ""
 
 # Step 5: Parse and load InterProScan results
 echo "Step 5: Parsing InterProScan results..."
-perl parsers/parse_InterProScan_to_MOOP_TSV.pl "$TEST_DATA/iprscan_results.tsv" > "$OUTPUT_DIR/interproscan_annotations.tsv"
-echo "✓ Created: $OUTPUT_DIR/interproscan_annotations.tsv"
+perl parsers/parse_InterProScan_to_MOOP_TSV.pl "$TEST_DATA/iprscan_results.tsv" --version "5.52.0"
+echo "✓ Created InterProScan annotations TSV files"
 
 echo "Loading InterProScan annotations into database..."
 perl loaders/load_annotations_sqlite.pl --db "$DB_FILE" --file "$OUTPUT_DIR/interproscan_annotations.tsv" --source "InterProScan" --version "5.52.0"
