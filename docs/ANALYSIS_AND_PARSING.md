@@ -28,6 +28,8 @@ DIAMOND is a high-performance sequence similarity search tool that can work with
 4. Parse results into MOOP annotation format
 5. Load annotations into the database
 
+**Sample Scripts:** This repository includes example shell scripts in the `analysis/` directory that demonstrate the complete workflow including database download, formatting, and DIAMOND execution. These can be adapted for your specific needs.
+
 ## Prerequisites
 
 ### Environment Setup

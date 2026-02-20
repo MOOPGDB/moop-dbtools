@@ -6,14 +6,14 @@ sub usage {
     my ($msg) = @_;
     print STDERR "ERROR: $msg\n" if $msg;
     print STDERR <<'EOF';
-Usage: parse_GFF3_to_MOOP_TSV.pl <genomic.gff3> <organisms.tsv> <genus> <species> <accession>
+Usage: parse_GFF3_to_MOOP_TSV.pl <genomic.gff3> <organisms.tsv> <genus> <species> <genome-accession>
 
 Required arguments:
   genomic.gff3        GFF3 format annotation file (NOT GFF2)
   organisms.tsv       Organisms metadata TSV file
   genus               Organism genus (used to match organisms.tsv)
   species             Organism species (used to match organisms.tsv)
-  accession           Genome accession ID (used to match organisms.tsv)
+  genome-accession    Genome accession ID (used to match organisms.tsv)
 
 organisms.tsv format (tab-delimited):
   Required columns: genus, species, genome-accession, feature-types

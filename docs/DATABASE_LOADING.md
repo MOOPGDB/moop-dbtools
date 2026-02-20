@@ -42,7 +42,7 @@ First, ensure you have an organisms metadata TSV file with organism information 
 **organisms.tsv format:**
 ```
 genus	species	common-name	genome-name	genome-accession	genome-source	ncbi-taxon-id	feature-types	...
-Chamaeleo	calyptratus	Veiled Chameleon	CCA3	CCA3	SIMR	179908	mRNA,gene	...
+Chamaeleo	calyptratus	Veiled Chameleon	CCA3	CCA3	Custom	179908	mRNA,gene	...
 ```
 
 **Key columns:**
@@ -100,7 +100,7 @@ gene_002	gene	scaffold_001	GENE2	Description of gene 2
 - Optional: `## Common Name:`, `## NCBI Taxon ID:`, `## Genome Accession:`, `## Genome Name:`, `## Genome Description:`, `## Species Subtype:`
 
 **Data format:**
-- Tab-delimited with 6 columns: Uniquename, This_Type, Parent_uniquename, This_Name, This_Description
+- Tab-delimited with 5 columns: Uniquename, This_Type, Parent_uniquename, This_Name, This_Description
 - Uniquename: unique identifier for the feature (required, non-empty)
 - This_Type: feature type (gene, exon, etc.)
 - Parent_uniquename: identifier of parent feature (leave empty if no parent)
@@ -148,7 +148,7 @@ PROTEIN_002	Q16342	Programmed cell death protein 2	2.04e-210
 ### `parsers/parse_GFF3_to_MOOP_TSV.pl`
 Converts GFF3 annotation files to MOOP TSV format for database loading. Reads organism metadata from a centralized TSV file.
 
-**Usage:** `perl parsers/parse_GFF3_to_MOOP_TSV.pl <genomic.gff3> <organisms.tsv> <genus> <species> <accession>`
+**Usage:** `perl parsers/parse_GFF3_to_MOOP_TSV.pl <genomic.gff3> <organisms.tsv> <genus> <species> <genome-accession>`
 
 **Features:**
 - Parses GFF3 files with ID, Name, Note, and Parent attributes
