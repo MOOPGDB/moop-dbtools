@@ -20,4 +20,4 @@ diamond blastp \
 echo "✓ DIAMOND search complete: diamond_results.m8"
 echo ""
 echo "Parse results with:"
-echo "  perl parsers/parse_DIAMOND_to_MOOP_TSV.pl diamond_results.m8 uniprot_sprot > annotations.tsv"
+echo "  perl parsers/parse_DIAMOND_to_MOOP_TSV.pl diamond_results.m8 \"UniProtKB/Swiss-Prot\" \"2024.01\" \"https://www.uniprot.org\" \"https://www.uniprot.org/uniprotkb/\""

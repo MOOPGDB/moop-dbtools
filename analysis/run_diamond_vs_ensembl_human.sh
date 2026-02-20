@@ -17,4 +17,4 @@ diamond blastp \
 echo "✓ DIAMOND search complete: diamond_vs_ensembl_human.m8"
 echo ""
 echo "Parse results with:"
-echo "  perl parsers/parse_DIAMOND_to_MOOP_TSV.pl diamond_vs_ensembl_human.m8 ensembl_human > annotations.tsv"
+echo "  perl parsers/parse_DIAMOND_to_MOOP_TSV.pl diamond_vs_ensembl_human.m8 \"Ensembl Homo sapiens\" \"115\" \"https://www.ensembl.org\" \"https://www.ensembl.org/Multi/Search/Results?q=\""
