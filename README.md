@@ -102,10 +102,10 @@ If you only need to load gene and annotation data into the database:
 
 ```bash
 # Create minimal environment
-mamba create -n moop-dbtools-minimal -c bioconda -c conda-forge perl perl-dbi perl-dbd-sqlite
+mamba create -n moop-dbtools -c bioconda -c conda-forge perl perl-dbi perl-dbd-sqlite
 
 # Activate environment
-mamba activate moop-dbtools-minimal
+mamba activate moop-dbtools
 ```
 
 This minimal install is ~100 MB and includes everything needed for database creation and loading.

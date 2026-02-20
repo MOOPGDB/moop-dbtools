@@ -15,7 +15,7 @@
 #   - Remove 'interproscan' if you don't need protein domain analysis (saves ~1-2 GB)
 #
 # Minimal alternative (no analysis tools):
-#   conda create -n moop-dbtools-minimal -c bioconda -c conda-forge \
+#   conda create -n moop-dbtools -c bioconda -c conda-forge \
 #     perl perl-dbi perl-dbd-sqlite
 
 name: moop-dbtools
