@@ -64,44 +64,45 @@ To create annotation output compatible with MOOP, follow this format:
 TSV file with metadata header followed by tab-delimited columns:
 
 ```
-# MOOP Annotation Format
-# annotation_type: [Type Name]
-# analysis_tool: [Tool Name]
-# analysis_version: [Version]
-# annotation_description: [Optional description]
-
-feature_uniquename	annotation_accession	annotation_description	score
+## Annotation Source: [Source Name]
+## Annotation Source Version: [Version]
+## Annotation Source URL: [Homepage URL]
+## Annotation Accession URL: [Record Lookup URL]
+## Annotation Type: [Type Name]
+## Annotation Creation Date: [YYYY-MM-DD]
+## Gene	Accession	Accession_Description	Score
 ```
 
 ### Column Structure
 
 | Column | Description | Example |
 |--------|-------------|---------|
-| `feature_uniquename` | Unique identifier matching the feature in genes.tsv (first column) | `AT1G01010` |
-| `annotation_accession` | Unique ID for this annotation hit from the source database | `GO:0008150` |
-| `annotation_description` | Human-readable description of the annotation | `Biological process` |
-| `score` | Numerical score or categorical value (e.g., e-value, confidence, namespace) | `0.001` or `cellular_component` |
+| `Gene` | Gene/protein identifier from your dataset | `PROTEIN_001` |
+| `Accession` | Unique ID for this annotation hit from the source database | `Q9BWM5` |
+| `Accession_Description` | Human-readable description of the annotation | `Zinc finger protein 416` |
+| `Score` | Numerical score or categorical value (e.g., e-value, confidence, namespace) | `3.94e-110` |
 
 ### Metadata Header Rules
 
 The first few lines of your TSV file MUST include:
-- `# MOOP Annotation Format` - Identifies the file format
-- `# annotation_type:` - The type of annotation (from the list above or custom)
-- `# analysis_tool:` - Name of the analysis tool used
-- `# analysis_version:` - Version of the analysis tool
-- `# annotation_description:` (optional) - Brief description of the analysis
+- `## Annotation Source:` - Name of the source database
+- `## Annotation Source Version:` - Version or release date of the source
+- `## Annotation Source URL:` - Homepage URL for the database
+- `## Annotation Accession URL:` - URL prefix for individual record lookup
+- `## Annotation Type:` - The type of annotation (Homologs, Domains, Gene Ontology, etc.)
+- `## Annotation Creation Date:` - Date the annotation file was created (YYYY-MM-DD)
 
 Example:
 ```
-# MOOP Annotation Format
-# annotation_type: Gene Ontology
-# analysis_tool: InterProScan
-# analysis_version: 5.61-92.0
-# annotation_description: Gene Ontology annotations from InterProScan
-
-feature_uniquename	GO_ID	GO_DESCRIPTION	NAMESPACE
-AT1G01010	GO:0008150	biological_process	biological_process
-AT1G01010	GO:0005575	cellular_component	cellular_component
+## Annotation Source: UniProtKB/Swiss-Prot
+## Annotation Source Version: 2024.01
+## Annotation Source URL: https://www.uniprot.org
+## Annotation Accession URL: https://www.uniprot.org/uniprotkb/
+## Annotation Type: Homologs
+## Annotation Creation Date: 2025-06-17
+## Gene	Accession	Accession_Description	Score
+PROTEIN_001	Q9BWM5	Zinc finger protein 416	3.94e-110
+PROTEIN_002	Q16342	Programmed cell death protein 2	2.04e-210
 ```
 
 ## Parsing Script Examples
