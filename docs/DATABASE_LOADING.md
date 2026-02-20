@@ -63,7 +63,7 @@ perl parsers/parse_GFF3_to_MOOP_TSV.pl genomic.gff3 organisms.tsv Chamaeleo caly
 - `Chamaeleo calyptratus CCA3` - Organism identifiers (genus, species, accession)
 - Output: `genes.tsv` (MOOP format with metadata headers)
 
-The feature types to extract come from the `feature-types` column in organizations.tsv, so you don't need to specify them on the command line.
+The feature types to extract come from the `feature-types` column in organisms.tsv, so you don't need to specify them on the command line.
 
 ### 3. Create the Database Schema
 

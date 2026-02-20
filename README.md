@@ -257,12 +257,12 @@ sqlite3 organism.sqlite < create_schema_sqlite.sql
 
 **Load gene data:**
 ```bash
-perl loaders/load_genes_sqlite.pl --db organism.sqlite --genus Chamaeleo --species calyptratus --file genes.tsv
+perl loaders/load_genes_sqlite.pl organism.sqlite genes.tsv
 ```
 
 **Load annotations:**
 ```bash
-perl loaders/load_annotations_sqlite.pl --db organism.sqlite --file annotations.tsv --source "Analysis Name" --version "1.0"
+perl loaders/load_annotations_sqlite.pl organism.sqlite annotations.tsv
 ```
 
 **Run DIAMOND BLAST:**
@@ -272,7 +272,7 @@ diamond blastp --ultra-sensitive --evalue 1e-5 --query proteins.fa --db ref.dmnd
 
 **Parse DIAMOND results:**
 ```bash
-perl parsers/parse_DIAMOND_to_MOOP_TSV.pl hits.tsv uniprot_sprot > annotations.tsv
+perl parsers/parse_DIAMOND_to_MOOP_TSV.pl hits.tsv "UniProtKB/Swiss-Prot" "2024.01" "https://www.uniprot.org" "https://www.uniprot.org/uniprotkb/"
 ```
 
 **Run InterProScan protein domain analysis:**
@@ -312,7 +312,6 @@ A complete test workflow is available in `test_workflow.sh` that demonstrates:
 
 **Quick test:**
 ```bash
-cd /var/www/html/dbtools
 ./test_workflow.sh
 ```
 
