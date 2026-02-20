@@ -112,32 +112,27 @@ PROTEIN_002	Q16342	Programmed cell death protein 2	2.04e-210
 Use `parse_DIAMOND_to_MOOP_TSV.pl` to convert DIAMOND output:
 
 ```bash
-perl parse_DIAMOND_to_MOOP_TSV.pl \
-  diamond_output.tsv \
-  uniprot_swissprot.version \
-  > homologs.tsv
+perl parsers/parse_DIAMOND_to_MOOP_TSV.pl tophit.tsv "UniProtKB/Swiss-Prot" "2024.01" "https://www.uniprot.org" "https://www.uniprot.org/uniprotkb/"
 ```
+
+This creates: `UniProtKB_Swiss-Prot.homologs.moop.tsv`
 
 ### InterProScan to MOOP Format
 
 Use `parse_InterProScan_to_MOOP_TSV.pl` to convert InterProScan output:
 
 ```bash
-perl parse_InterProScan_to_MOOP_TSV.pl \
-  interproscan_output.tsv \
-  interproscan.version \
-  > domains.tsv
+perl parsers/parse_InterProScan_to_MOOP_TSV.pl interproscan_output.tsv --version "5.52.0" --outdir output/
 ```
+
+This creates multiple TSV files (one per analysis type) in the output directory.
 
 ### GFF3 to Feature Table
 
 Use `parse_GFF3_to_MOOP_TSV.pl` to create the initial feature table from GFF3:
 
 ```bash
-perl parse_GFF3_to_MOOP_TSV.pl \
-  genomic.gff3 \
-  organisms.tsv \
-  > features.tsv
+perl parsers/parse_GFF3_to_MOOP_TSV.pl genomic.gff3 organisms.tsv Chamaeleo calyptratus CCA3 > features.tsv
 ```
 
 ## Loading Annotations into MOOP
@@ -145,9 +140,7 @@ perl parse_GFF3_to_MOOP_TSV.pl \
 Once your annotation TSV file is properly formatted:
 
 ```bash
-perl load_annotations_sqlite.pl \
-  -db /path/to/organism.sqlite \
-  -tsv annotations.tsv
+perl loaders/load_annotations_sqlite.pl organism.sqlite annotations.tsv
 ```
 
 The loader will:
