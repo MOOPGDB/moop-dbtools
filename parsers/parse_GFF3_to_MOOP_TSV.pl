@@ -16,9 +16,10 @@ Required arguments:
   genome-accession    Genome accession ID (used to match organisms.tsv)
 
 organisms.tsv format (tab-delimited):
-  Required columns: genus, species, genome-accession, feature-types
+  Required columns (exact names): genus, species, genome-accession, ncbi-taxon-id, feature-types
   feature-types: comma-separated list (e.g., "mRNA,gene")
-  Optional: common-name, genome-name, genome-source, ncbi-taxon-id, and other metadata
+  Optional: common-name (defaults to "Genus species"), genome-name (defaults to genome-accession), 
+            genome-source, details, and other metadata
 
 Output:
   STDOUT containing gene features in MOOP format with metadata headers
@@ -46,26 +47,34 @@ usage("Organisms TSV file is not readable: $organisms_tsv") unless -r $organisms
 
 # Read organisms metadata from TSV file
 my %metadata;
-my @metadata_headers;
 open METADATA, $organisms_tsv or die "Can't open organisms metadata TSV file $! \n";
 
 my $header_line = <METADATA>;
 chomp $header_line;
 $header_line =~ s/\r$//;
-@metadata_headers = split "\t", $header_line;
+my @headers = split "\t", $header_line;
+
+# Find required column indices
+my ($genus_idx, $species_idx, $accession_idx, $taxon_idx);
+for (my $i = 0; $i < @headers; $i++){
+  $genus_idx = $i if $headers[$i] eq 'genus';
+  $species_idx = $i if $headers[$i] eq 'species';
+  $accession_idx = $i if $headers[$i] eq 'genome-accession';
+  $taxon_idx = $i if $headers[$i] eq 'ncbi-taxon-id';
+}
+
+die "Required columns not found in $organisms_tsv (need: genus, species, genome-accession, ncbi-taxon-id)\n" 
+  unless defined($genus_idx) && defined($species_idx) && defined($accession_idx) && defined($taxon_idx);
 
 while (my $line = <METADATA>){
   chomp $line;
   $line =~ s/\r$//;
   my @cols = split "\t", $line;
   
-  my %row;
-  for (my $i = 0; $i < @metadata_headers; $i++){
-    $row{$metadata_headers[$i]} = $cols[$i] // '';
-  }
-  
-  if ($row{genus} eq $target_genus && $row{species} eq $target_species && $row{accession} eq $target_accession){
-    %metadata = %row;
+  if ($cols[$genus_idx] eq $target_genus && $cols[$species_idx] eq $target_species && $cols[$accession_idx] eq $target_accession){
+    for (my $i = 0; $i < @headers; $i++){
+      $metadata{$headers[$i]} = $cols[$i] // '';
+    }
     last;
   }
 }
@@ -84,6 +93,10 @@ my $genome_name = $metadata{'genome-name'} // '';
 my $source = $metadata{'genome-source'} // '';
 my $details = $metadata{details} // '';
 my $feature_types_str = $metadata{'feature-types'} // '';
+
+# Use fallback values if not provided
+$commonname = "$genus $species" if !$commonname;
+$genome_name = $genome_accession if !$genome_name;
 
 if (!$feature_types_str){
   usage("Feature types not specified: feature-types column missing or empty for genus=$target_genus, species=$target_species, accession=$target_accession");

@@ -45,11 +45,18 @@ genus	species	common-name	genome-name	genome-accession	genome-source	ncbi-taxon-
 Chamaeleo	calyptratus	Veiled Chameleon	CCA3	CCA3	Custom	179908	mRNA,gene	...
 ```
 
-**Key columns:**
-- `genus`, `species` - Scientific names (used to identify the organism)
-- `genome-accession` - Genome accession ID (used to identify the organism)
+**Required column names (must be exact):**
+- `genus` - Genus name
+- `species` - Species name
+- `genome-accession` - Genome accession ID (must use hyphen not underscore)
+- `ncbi-taxon-id` - NCBI taxonomy identifier (must use hyphen not underscore)
 - `feature-types` - Comma-separated list of feature types to extract (e.g., `mRNA,gene`)
-- Other columns: `common-name`, `genome-name`, `genome-source`, `ncbi-taxon-id`, etc.
+
+**Optional columns (use these exact names):**
+- `common-name` - Common name for the organism (defaults to "Genus species" if not provided)
+- `genome-name` - Name of the genome assembly (defaults to genome-accession if not provided)
+- `genome-source` - Source of the genome data
+- `source-url`, `download-url`, `details` - Additional metadata
 
 Then convert your GFF file to MOOP TSV format:
 
